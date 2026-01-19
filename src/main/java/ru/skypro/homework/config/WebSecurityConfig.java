@@ -19,12 +19,18 @@ public class WebSecurityConfig {
     private static final String[] AUTH_WHITELIST = {
             "/swagger-resources/**",
             "/swagger-ui.html",
+            "/swagger-ui/**",
             "/v3/api-docs",
+            "/v3/api-docs/**",
             "/webjars/**",
             "/login",
-            "/register"
+            "/register",
+            "/ads",
+            "/ads/*",
+            "/ads/*/comments",
+            "/ads/*/image",
+            "/users/*/image"
     };
-
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
         UserDetails user =
@@ -58,5 +64,4 @@ public class WebSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
