@@ -11,6 +11,13 @@ import ru.skypro.homework.service.AuthService;
 
 import javax.validation.Valid;
 
+/**
+ * Контроллер для аутентификации и регистрации пользователей.
+ * Обрабатывает запросы на вход в систему и регистрацию новых пользователей.
+ *
+ * @author Контроллер аутентификации
+ * @version 1.0
+ */
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
@@ -19,6 +26,14 @@ public class AuthController {
 
     private final AuthService authService;
 
+    /**
+     * Выполняет аутентификацию пользователя.
+     * Проверяет учетные данные пользователя и устанавливает сессию.
+     *
+     * @param login DTO с данными для входа (логин и пароль)
+     * @return ResponseEntity со статусом 200 при успешной аутентификации,
+     *         или 401 при неверных учетных данных
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody Login login) {
         log.info("Попытка входа пользователя: {}", login.getUsername());
@@ -29,6 +44,14 @@ public class AuthController {
         }
     }
 
+    /**
+     * Регистрирует нового пользователя в системе.
+     * Создает учетную запись пользователя с предоставленными данными.
+     *
+     * @param register DTO с данными для регистрации
+     * @return ResponseEntity со статусом 201 при успешной регистрации,
+     *         или 400 при ошибке регистрации (например, пользователь уже существует)
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody Register register) {
         log.info("Попытка регистрации пользователя: {}", register.getUsername());
