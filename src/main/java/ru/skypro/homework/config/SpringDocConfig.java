@@ -8,6 +8,13 @@ import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Конфигурационный класс для настройки OpenAPI/Swagger документации.
+ * Определяет общую информацию об API и схему аутентификации.
+ *
+ * @author Система документации API
+ * @version 1.0
+ */
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
@@ -30,4 +37,13 @@ import org.springframework.context.annotation.Configuration;
         scheme = "basic"
 )
 public class SpringDocConfig {
+    /**
+     * Конфигурация OpenAPI включает:
+     * - Заголовок: "Ads Application API"
+     * - Версия: "1.0"
+     * - Описание: "API для управления объявлениями"
+     * - Контактная информация поддержки
+     * - Лицензия Apache 2.0
+     * - Схема безопасности HTTP Basic Auth
+     */
 }
