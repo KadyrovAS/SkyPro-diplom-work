@@ -1,6 +1,10 @@
 package ru.skypro.homework.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 /**
  * DTO (Data Transfer Object) для представления информации о пользователе.
@@ -9,7 +13,12 @@ import lombok.Data;
  * @author DTO пользователя
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class User {
     /** Идентификатор пользователя */
     private Integer id;

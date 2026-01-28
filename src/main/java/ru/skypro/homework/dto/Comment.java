@@ -1,6 +1,10 @@
 package ru.skypro.homework.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 /**
  * DTO (Data Transfer Object) для представления комментария к объявлению.
@@ -9,7 +13,11 @@ import lombok.Data;
  * @author DTO комментария
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
     /** Идентификатор автора комментария */
     private Integer author;

@@ -1,6 +1,11 @@
 package ru.skypro.homework.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 
 /**
  * DTO (Data Transfer Object) для представления расширенной информации об объявлении.
@@ -10,7 +15,12 @@ import lombok.Data;
  * @author DTO расширенного объявления
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class ExtendedAd {
     /** Идентификатор объявления */
     private Integer pk;

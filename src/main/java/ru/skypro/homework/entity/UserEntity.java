@@ -1,6 +1,11 @@
 package ru.skypro.homework.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import ru.skypro.homework.dto.Role;
 
 import javax.persistence.*;
@@ -20,7 +25,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
     /** Уникальный идентификатор пользователя, генерируется автоматически */
     @Id

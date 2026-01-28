@@ -1,6 +1,11 @@
 package ru.skypro.homework.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 import javax.validation.constraints.*;
 
 /**
@@ -11,7 +16,11 @@ import javax.validation.constraints.*;
  * @author DTO создания/обновления объявления
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateOrUpdateAd {
     /** Заголовок объявления (от 4 до 32 символов) */
     @Size(min = 4, max = 32)

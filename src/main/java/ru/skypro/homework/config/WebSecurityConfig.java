@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import ru.skypro.homework.repository.UserRepository;
+import ru.skypro.homework.service.impl.CustomUserDetailsManager;
 
 import java.util.Arrays;
 
@@ -20,6 +20,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 /**
  * Конфигурационный класс безопасности приложения.
  * Настраивает аутентификацию, авторизацию, CORS и параметры безопасности для HTTP запросов.
+ * Использует CustomUserDetailsManager для работы с пользователями в базе данных.
  *
  * @author Система безопасности
  * @version 1.0
@@ -49,27 +50,9 @@ public class WebSecurityConfig {
     };
 
     /**
-     * Создает сервис для загрузки данных пользователей из базы данных.
-     * Использует UserRepository для поиска пользователей по email.
-     *
-     * @param userRepository репозиторий пользователей
-     * @return реализация UserDetailsService для Spring Security
-     */
-    @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return username -> userRepository.findByEmail(username)
-                .map(user -> org.springframework.security.core.userdetails.User.builder()
-                        .username(user.getEmail())
-                        .password(user.getPassword())
-                        .roles(user.getRole().name())
-                        .build())
-                .orElseThrow(() -> new org.springframework.security.core.userdetails.UsernameNotFoundException(
-                        String.format("Пользователь '%s' не найден", username)));
-    }
-
-    /**
      * Конфигурирует цепочку фильтров безопасности.
      * Настраивает CORS, отключает CSRF, определяет правила авторизации и включает HTTP Basic аутентификацию.
+     * Использует CustomUserDetailsManager для аутентификации пользователей.
      *
      * @param http объект HttpSecurity для настройки
      * @return сконфигурированная цепочка фильтров безопасности
@@ -86,6 +69,17 @@ public class WebSecurityConfig {
                                 .mvcMatchers("/ads/**", "/users/**").authenticated())
                 .httpBasic(withDefaults());
         return http.build();
+    }
+
+    /**
+     * Создает менеджер пользователей для работы с базой данных.
+     * Реализует интерфейс UserDetailsManager для управления пользователями в Spring Security.
+     *
+     * @return реализация UserDetailsManager на основе JPA
+     */
+    @Bean
+    public UserDetailsManager userDetailsManager(CustomUserDetailsManager customUserDetailsManager) {
+        return customUserDetailsManager;
     }
 
     /**

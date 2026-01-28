@@ -1,7 +1,12 @@
 package ru.skypro.homework.dto;
 
 import javax.validation.constraints.*;
-import lombok.Data;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 /**
  * DTO (Data Transfer Object) для обновления профиля пользователя.
@@ -11,7 +16,12 @@ import lombok.Data;
  * @author DTO обновления пользователя
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class UpdateUser {
     /** Имя пользователя (от 3 до 10 символов) */
     @Size(min = 3, max = 10, message = "Имя должно быть от 3 до 10 символов")
