@@ -1,6 +1,11 @@
 package ru.skypro.homework.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 import java.util.List;
 
 /**
@@ -10,7 +15,12 @@ import java.util.List;
  * @author DTO списка комментариев
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class Comments {
     /** Общее количество комментариев */
     private Integer count;

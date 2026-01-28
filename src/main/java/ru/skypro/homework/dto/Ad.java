@@ -1,6 +1,6 @@
 package ru.skypro.homework.dto;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  * DTO (Data Transfer Object) для представления объявления в списке.
@@ -9,7 +9,11 @@ import lombok.Data;
  * @author DTO объявления
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ad {
     /** Идентификатор автора объявления */
     private Integer author;

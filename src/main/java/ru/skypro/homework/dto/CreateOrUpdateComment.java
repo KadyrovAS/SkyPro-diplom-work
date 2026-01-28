@@ -1,7 +1,13 @@
 package ru.skypro.homework.dto;
 
 import javax.validation.constraints.*;
-import lombok.Data;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 
 /**
  * DTO (Data Transfer Object) для создания или обновления комментария.
@@ -11,7 +17,12 @@ import lombok.Data;
  * @author DTO создания/обновления комментария
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class CreateOrUpdateComment {
     /** Текст комментария (обязательное поле, от 8 до 64 символов) */
     @NotBlank(message = "Текст комментария не может быть пустым")
