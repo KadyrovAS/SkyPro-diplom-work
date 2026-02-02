@@ -1,7 +1,13 @@
 package ru.skypro.homework.dto;
 
 import javax.validation.constraints.*;
-import lombok.Data;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 
 /**
  * DTO (Data Transfer Object) для регистрации нового пользователя.
@@ -11,7 +17,12 @@ import lombok.Data;
  * @author DTO регистрации
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class Register {
     /** Логин пользователя (email) (от 4 до 32 символов) */
     @Size(min = 4, max = 32, message = "Логин должен быть от 4 до 32 символов")
