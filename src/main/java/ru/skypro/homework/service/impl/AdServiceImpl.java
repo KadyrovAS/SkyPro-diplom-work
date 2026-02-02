@@ -83,8 +83,9 @@ public class AdServiceImpl implements AdService {
         // Сохраняем изображение
         if (image != null && !image.isEmpty()) {
             try {
-                String imagePath = fileService.saveImage(image, "ads");
-                adEntity.setImage(imagePath);
+                // Изменено: сохраняем только имя файла
+                String imageFilename = fileService.saveImage(image, "ads");
+                adEntity.setImage(imageFilename);
             } catch (IOException e) {
                 throw new BadRequestException("Ошибка при сохранении изображения: " + e.getMessage());
             }
@@ -142,7 +143,7 @@ public class AdServiceImpl implements AdService {
         // Удаляем изображение
         if (adEntity.getImage() != null) {
             try {
-                fileService.deleteImage(adEntity.getImage());
+                fileService.deleteImage("ads", adEntity.getImage());
             } catch (IOException e) {
                 log.error("Ошибка при удалении изображения объявления {}: {}", id, e.getMessage());
             }
@@ -242,7 +243,7 @@ public class AdServiceImpl implements AdService {
         // Удаляем старое изображение
         if (adEntity.getImage() != null) {
             try {
-                fileService.deleteImage(adEntity.getImage());
+                fileService.deleteImage("ads", adEntity.getImage());
             } catch (IOException e) {
                 log.error("Ошибка при удалении старого изображения: {}", e.getMessage());
             }
@@ -250,8 +251,9 @@ public class AdServiceImpl implements AdService {
 
         // Сохраняем новое изображение
         try {
-            String imagePath = fileService.saveImage(image, "ads");
-            adEntity.setImage(imagePath);
+            // Изменено: сохраняем только имя файла
+            String imageFilename = fileService.saveImage(image, "ads");
+            adEntity.setImage(imageFilename);
             adRepository.save(adEntity);
             log.info("Обновлено изображение объявления ID: {}", id);
         } catch (IOException e) {
@@ -276,7 +278,8 @@ public class AdServiceImpl implements AdService {
         }
 
         try {
-            return fileService.loadImage(adEntity.getImage());
+            // Изменено: загружаем изображение с указанием поддиректории
+            return fileService.loadImage("ads", adEntity.getImage());
         } catch (IOException e) {
             log.error("Ошибка при чтении изображения объявления {}: {}", id, e.getMessage());
             return new byte[0];

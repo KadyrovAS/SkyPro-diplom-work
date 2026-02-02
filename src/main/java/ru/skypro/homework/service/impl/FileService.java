@@ -37,20 +37,16 @@ public class FileService {
         Files.copy(file.getInputStream(), destination);
 
         log.info("Файл сохранен: {}", destination);
-        return String.format("/%s/%s", subdir, filename);
+        // Изменено: возвращаем только имя файла без пути
+        return filename;
     }
 
-    public byte[] loadImage(String path) throws IOException {
-        if (path == null || path.isEmpty()) {
-            throw new IOException("Путь к файлу не указан");
+    public byte[] loadImage(String subdir, String filename) throws IOException {
+        if (filename == null || filename.isEmpty()) {
+            throw new IOException("Имя файла не указано");
         }
 
-        // Убираем начальный слэш, если есть
-        if (path.startsWith("/")) {
-            path = path.substring(1);
-        }
-
-        Path filePath = rootLocation.resolve(path);
+        Path filePath = rootLocation.resolve(subdir).resolve(filename);
         if (!Files.exists(filePath)) {
             throw new IOException("Файл не найден: " + filePath);
         }
@@ -58,17 +54,12 @@ public class FileService {
         return Files.readAllBytes(filePath);
     }
 
-    public void deleteImage(String path) throws IOException {
-        if (path == null || path.isEmpty()) {
+    public void deleteImage(String subdir, String filename) throws IOException {
+        if (filename == null || filename.isEmpty()) {
             return;
         }
 
-        // Убираем начальный слэш, если есть
-        if (path.startsWith("/")) {
-            path = path.substring(1);
-        }
-
-        Path filePath = rootLocation.resolve(path);
+        Path filePath = rootLocation.resolve(subdir).resolve(filename);
         if (Files.exists(filePath)) {
             Files.delete(filePath);
             log.info("Файл удален: {}", filePath);

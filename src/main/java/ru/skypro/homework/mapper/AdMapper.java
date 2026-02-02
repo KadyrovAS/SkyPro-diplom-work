@@ -29,7 +29,12 @@ public class AdMapper {
         ad.setAuthor(entity.getAuthor().getId());
         ad.setTitle(entity.getTitle());
         ad.setPrice(entity.getPrice());
-        ad.setImage(entity.getImage());
+        // Изменено: возвращаем URL для получения изображения через контроллер
+        if (entity.getImage() != null && !entity.getImage().isEmpty()) {
+            ad.setImage("/ads/" + entity.getId() + "/image");
+        } else {
+            ad.setImage("");
+        }
         return ad;
     }
 
@@ -46,7 +51,13 @@ public class AdMapper {
         extendedAd.setTitle(entity.getTitle());
         extendedAd.setPrice(entity.getPrice());
         extendedAd.setDescription(entity.getDescription());
-        extendedAd.setImage(entity.getImage());
+
+        // Изменено: возвращаем URL для получения изображения через контроллер
+        if (entity.getImage() != null && !entity.getImage().isEmpty()) {
+            extendedAd.setImage("/ads/" + entity.getId() + "/image");
+        } else {
+            extendedAd.setImage("");
+        }
 
         if (entity.getAuthor() != null) {
             extendedAd.setAuthorFirstName(entity.getAuthor().getFirstName());

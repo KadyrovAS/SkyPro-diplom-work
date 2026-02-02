@@ -179,19 +179,20 @@ public class UserServiceImpl implements UserService {
         }
 
         // Сохраняем изображение
-        String imagePath = fileService.saveImage(image, "users");
+        // Изменено: сохраняем только имя файла
+        String imageFilename = fileService.saveImage(image, "users");
 
         // Удаляем старое изображение, если оно существует
         if (userEntity.getImage() != null && !userEntity.getImage().isEmpty()) {
             try {
-                fileService.deleteImage(userEntity.getImage());
+                fileService.deleteImage("users", userEntity.getImage());
             } catch (IOException e) {
                 log.error("Ошибка при удалении старого изображения пользователя {}: {}", email, e.getMessage());
             }
         }
 
         // Обновляем путь к изображению
-        userEntity.setImage(imagePath);
+        userEntity.setImage(imageFilename);
         userRepository.save(userEntity);
 
         log.info("Аватар пользователя обновлен: {}", email);
@@ -216,7 +217,8 @@ public class UserServiceImpl implements UserService {
         }
 
         try {
-            return fileService.loadImage(userEntity.getImage());
+            // Изменено: загружаем изображение с указанием поддиректории
+            return fileService.loadImage("users", userEntity.getImage());
         } catch (IOException e) {
             log.error("Ошибка при чтении аватара пользователя {}: {}", userId, e.getMessage());
             throw new BadRequestException("Не удалось загрузить изображение: " + e.getMessage());

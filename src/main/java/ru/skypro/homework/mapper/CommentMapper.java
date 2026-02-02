@@ -36,7 +36,13 @@ public class CommentMapper {
         if (entity.getAuthor() != null) {
             comment.setAuthor(entity.getAuthor().getId());
             comment.setAuthorFirstName(entity.getAuthor().getFirstName());
-            comment.setAuthorImage(entity.getAuthor().getImage());
+
+            // Изменено: возвращаем URL для получения изображения через контроллер
+            if (entity.getAuthor().getImage() != null && !entity.getAuthor().getImage().isEmpty()) {
+                comment.setAuthorImage("/users/" + entity.getAuthor().getId() + "/image");
+            } else {
+                comment.setAuthorImage("");
+            }
         }
 
         if (entity.getCreatedAt() != null) {

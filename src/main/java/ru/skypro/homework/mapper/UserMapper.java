@@ -50,7 +50,13 @@ public class UserMapper {
         user.setLastName(entity.getLastName());
         user.setPhone(entity.getPhone());
         user.setRole(entity.getRole());
-        user.setImage(entity.getImage());
+
+        // Изменено: возвращаем URL для получения изображения через контроллер
+        if (entity.getImage() != null && !entity.getImage().isEmpty()) {
+            user.setImage("/users/" + entity.getId() + "/image");
+        } else {
+            user.setImage("");
+        }
         return user;
     }
 
